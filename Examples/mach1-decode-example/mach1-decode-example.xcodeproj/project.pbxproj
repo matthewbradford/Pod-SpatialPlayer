@@ -23,6 +23,10 @@
 		A4F80A29203B3B86008D976A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4F80A27203B3B86008D976A /* Main.storyboard */; };
 		A4F80A2B203B3B86008D976A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4F80A2A203B3B86008D976A /* Assets.xcassets */; };
 		A4F80A2E203B3B86008D976A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4F80A2C203B3B86008D976A /* LaunchScreen.storyboard */; };
+		C9DD35EB262D22D400A9FBA0 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C9DD35EA262D22D400A9FBA0 /* Podfile */; };
+		C9DD35F1262D23C100A9FBA0 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DD35F0262D23C100A9FBA0 /* SpotifyiOS.framework */; };
+		C9DD35F3262D2BB300A9FBA0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DD35F2262D2BB300A9FBA0 /* AVFoundation.framework */; };
+		C9DD35F7262DF65500A9FBA0 /* Mach1SpatialAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DD35F6262DF65500A9FBA0 /* Mach1SpatialAPI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +61,10 @@
 		A4F80A2A203B3B86008D976A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4F80A2D203B3B86008D976A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4F80A2F203B3B86008D976A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9DD35EA262D22D400A9FBA0 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		C9DD35F0262D23C100A9FBA0 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		C9DD35F2262D2BB300A9FBA0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C9DD35F6262DF65500A9FBA0 /* Mach1SpatialAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mach1SpatialAPI.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/mach1-decode-example-ccnxgvodcoglvbgfekgayzpyrqaj/Build/Products/Debug-iphoneos/Mach1SpatialAPI/Mach1SpatialAPI.framework"; sourceTree = "<group>"; };
 		D8A5FF5001A47B2C9CFCE393 /* Pods-mach1-decode-example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mach1-decode-example.release.xcconfig"; path = "Target Support Files/Pods-mach1-decode-example/Pods-mach1-decode-example.release.xcconfig"; sourceTree = "<group>"; };
 		E121BE16CF8D73454122FE7A /* Pods-mach1-decode-example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mach1-decode-example.debug.xcconfig"; path = "Target Support Files/Pods-mach1-decode-example/Pods-mach1-decode-example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,7 +74,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9DD35F3262D2BB300A9FBA0 /* AVFoundation.framework in Frameworks */,
 				A46BE17D21E55EBC0050CFEB /* libc++.tbd in Frameworks */,
+				C9DD35F1262D23C100A9FBA0 /* SpotifyiOS.framework in Frameworks */,
+				C9DD35F7262DF65500A9FBA0 /* Mach1SpatialAPI.framework in Frameworks */,
 				A0F65A0C4073F2FEBF6073EF /* Pods_mach1_decode_example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +97,7 @@
 		A4F80A17203B3B85008D976A = {
 			isa = PBXGroup;
 			children = (
+				C9DD35EA262D22D400A9FBA0 /* Podfile */,
 				A4F80A22203B3B86008D976A /* mach1-decode-example */,
 				A4F80A21203B3B86008D976A /* Products */,
 				A4F80A53203B3C91008D976A /* Frameworks */,
@@ -118,8 +130,11 @@
 		A4F80A53203B3C91008D976A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9DD35F2262D2BB300A9FBA0 /* AVFoundation.framework */,
 				A46BE17C21E55EBB0050CFEB /* libc++.tbd */,
+				C9DD35F6262DF65500A9FBA0 /* Mach1SpatialAPI.framework */,
 				7AA88BBF728B50563F1399D7 /* Pods_mach1_decode_example.framework */,
+				C9DD35F0262D23C100A9FBA0 /* SpotifyiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -217,6 +232,7 @@
 				A4AF3D002048C3DE00253825 /* 005.aif in Resources */,
 				A4AF3D012048C3DE00253825 /* 006.aif in Resources */,
 				A4AF3D052048C3DE00253825 /* 007.aif in Resources */,
+				C9DD35EB262D22D400A9FBA0 /* Podfile in Resources */,
 				A4F80A2E203B3B86008D976A /* LaunchScreen.storyboard in Resources */,
 				A4F80A2B203B3B86008D976A /* Assets.xcassets in Resources */,
 				A4F80A29203B3B86008D976A /* Main.storyboard in Resources */,
@@ -438,7 +454,10 @@
 				DEVELOPMENT_TEAM = 6ZETDT84RB;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/mach1-decode-example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -450,7 +469,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpulentPlayer-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -472,7 +491,10 @@
 				DEVELOPMENT_TEAM = 6ZETDT84RB;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/mach1-decode-example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -484,7 +506,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpulentPlayer-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
