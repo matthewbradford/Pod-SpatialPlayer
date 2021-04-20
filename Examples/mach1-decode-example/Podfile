@@ -1,7 +1,6 @@
 use_frameworks!
 target 'mach1-decode-example' do
   pod 'Mach1SpatialAPI', :path => '../../'
-  pod 'Spotify-iOS-SDK' , '~> 1.0'
 end
 post_install do |installer|
   installer.pods_project.build_configurations.each do |config|
