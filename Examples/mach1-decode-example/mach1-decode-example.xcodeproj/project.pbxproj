@@ -9,20 +9,21 @@
 /* Begin PBXBuildFile section */
 		A0F65A0C4073F2FEBF6073EF /* Pods_mach1_decode_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA88BBF728B50563F1399D7 /* Pods_mach1_decode_example.framework */; };
 		A46BE17D21E55EBC0050CFEB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A46BE17C21E55EBB0050CFEB /* libc++.tbd */; };
-		A4AF3D002048C3DE00253825 /* 005.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CF82048C3D500253825 /* 005.aif */; };
-		A4AF3D012048C3DE00253825 /* 006.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CF92048C3D600253825 /* 006.aif */; };
-		A4AF3D022048C3DE00253825 /* 002.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CFA2048C3D800253825 /* 002.aif */; };
-		A4AF3D032048C3DE00253825 /* 001.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CFB2048C3D900253825 /* 001.aif */; };
-		A4AF3D042048C3DE00253825 /* 004.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CFC2048C3DB00253825 /* 004.aif */; };
-		A4AF3D052048C3DE00253825 /* 007.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CFD2048C3DC00253825 /* 007.aif */; };
-		A4AF3D062048C3DE00253825 /* 003.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3CFE2048C3DD00253825 /* 003.aif */; };
-		A4AF3D092048C42500253825 /* 000.aif in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3D082048C42500253825 /* 000.aif */; };
-		A4AF3D0B20491A3F00253825 /* stereo.wav in Resources */ = {isa = PBXBuildFile; fileRef = A4AF3D0A20491A3F00253825 /* stereo.wav */; };
 		A4F80A24203B3B86008D976A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F80A23203B3B86008D976A /* AppDelegate.swift */; };
 		A4F80A26203B3B86008D976A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F80A25203B3B86008D976A /* ViewController.swift */; };
 		A4F80A29203B3B86008D976A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4F80A27203B3B86008D976A /* Main.storyboard */; };
 		A4F80A2B203B3B86008D976A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4F80A2A203B3B86008D976A /* Assets.xcassets */; };
 		A4F80A2E203B3B86008D976A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4F80A2C203B3B86008D976A /* LaunchScreen.storyboard */; };
+		C91240F4265843C200047707 /* RollMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240F1265843C200047707 /* RollMeter.swift */; };
+		C91240F5265843C200047707 /* YawMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240F2265843C200047707 /* YawMeter.swift */; };
+		C91240F6265843C200047707 /* PitchMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240F3265843C200047707 /* PitchMeter.swift */; };
+		C91240F82658453500047707 /* SoundMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240F72658453500047707 /* SoundMap.swift */; };
+		C91240FA265846A300047707 /* CMDeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240F9265846A300047707 /* CMDeviceMotion.swift */; };
+		C91240FC2658478800047707 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240FB2658478800047707 /* SCNVector3Extensions.swift */; };
+		C91240FE2658479E00047707 /* SCNQuaternionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240FD2658479E00047707 /* SCNQuaternionExtension.swift */; };
+		C912410026584C6F00047707 /* GLKQuaternionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91240FF26584C6F00047707 /* GLKQuaternionExtension.swift */; };
+		C912410326584D1600047707 /* yawMeter.png in Resources */ = {isa = PBXBuildFile; fileRef = C912410126584D1500047707 /* yawMeter.png */; };
+		C912410426584D1600047707 /* cameraPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = C912410226584D1600047707 /* cameraPoint.png */; };
 		C9DD35EB262D22D400A9FBA0 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C9DD35EA262D22D400A9FBA0 /* Podfile */; };
 		C9DD35F1262D23C100A9FBA0 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DD35F0262D23C100A9FBA0 /* SpotifyiOS.framework */; };
 		C9DD35F3262D2BB300A9FBA0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DD35F2262D2BB300A9FBA0 /* AVFoundation.framework */; };
@@ -45,15 +46,6 @@
 /* Begin PBXFileReference section */
 		7AA88BBF728B50563F1399D7 /* Pods_mach1_decode_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mach1_decode_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46BE17C21E55EBB0050CFEB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
-		A4AF3CF82048C3D500253825 /* 005.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 005.aif; sourceTree = "<group>"; };
-		A4AF3CF92048C3D600253825 /* 006.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 006.aif; sourceTree = "<group>"; };
-		A4AF3CFA2048C3D800253825 /* 002.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 002.aif; sourceTree = "<group>"; };
-		A4AF3CFB2048C3D900253825 /* 001.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 001.aif; sourceTree = "<group>"; };
-		A4AF3CFC2048C3DB00253825 /* 004.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 004.aif; sourceTree = "<group>"; };
-		A4AF3CFD2048C3DC00253825 /* 007.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 007.aif; sourceTree = "<group>"; };
-		A4AF3CFE2048C3DD00253825 /* 003.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 003.aif; sourceTree = "<group>"; };
-		A4AF3D082048C42500253825 /* 000.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 000.aif; sourceTree = "<group>"; };
-		A4AF3D0A20491A3F00253825 /* stereo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stereo.wav; sourceTree = "<group>"; };
 		A4F80A20203B3B86008D976A /* mach1-decode-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mach1-decode-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4F80A23203B3B86008D976A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4F80A25203B3B86008D976A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +53,16 @@
 		A4F80A2A203B3B86008D976A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4F80A2D203B3B86008D976A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4F80A2F203B3B86008D976A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C91240F1265843C200047707 /* RollMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RollMeter.swift; path = "../../mach1-example/mach1-example/RollMeter.swift"; sourceTree = "<group>"; };
+		C91240F2265843C200047707 /* YawMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YawMeter.swift; path = "../../mach1-example/mach1-example/YawMeter.swift"; sourceTree = "<group>"; };
+		C91240F3265843C200047707 /* PitchMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PitchMeter.swift; path = "../../mach1-example/mach1-example/PitchMeter.swift"; sourceTree = "<group>"; };
+		C91240F72658453500047707 /* SoundMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundMap.swift; path = "../../mach1-example/mach1-example/SoundMap.swift"; sourceTree = "<group>"; };
+		C91240F9265846A300047707 /* CMDeviceMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CMDeviceMotion.swift; path = "../../mach1-example/mach1-example/CMDeviceMotion.swift"; sourceTree = "<group>"; };
+		C91240FB2658478800047707 /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNVector3Extensions.swift; path = "../../mach1-example/mach1-example/SCNVector3Extensions.swift"; sourceTree = "<group>"; };
+		C91240FD2658479E00047707 /* SCNQuaternionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNQuaternionExtension.swift; path = "../../mach1-example/mach1-example/SCNQuaternionExtension.swift"; sourceTree = "<group>"; };
+		C91240FF26584C6F00047707 /* GLKQuaternionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLKQuaternionExtension.swift; path = "../../mach1-example/mach1-example/GLKQuaternionExtension.swift"; sourceTree = "<group>"; };
+		C912410126584D1500047707 /* yawMeter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yawMeter.png; path = "../../mach1-example/mach1-example/yawMeter.png"; sourceTree = "<group>"; };
+		C912410226584D1600047707 /* cameraPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cameraPoint.png; path = "../../mach1-example/mach1-example/cameraPoint.png"; sourceTree = "<group>"; };
 		C9DD35EA262D22D400A9FBA0 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		C9DD35F0262D23C100A9FBA0 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		C9DD35F2262D2BB300A9FBA0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -118,10 +120,20 @@
 			children = (
 				A4F80A23203B3B86008D976A /* AppDelegate.swift */,
 				A4F80A25203B3B86008D976A /* ViewController.swift */,
+				C91240F72658453500047707 /* SoundMap.swift */,
+				C91240F3265843C200047707 /* PitchMeter.swift */,
+				C91240F1265843C200047707 /* RollMeter.swift */,
+				C91240F2265843C200047707 /* YawMeter.swift */,
+				C91240F9265846A300047707 /* CMDeviceMotion.swift */,
+				C91240FD2658479E00047707 /* SCNQuaternionExtension.swift */,
+				C91240FB2658478800047707 /* SCNVector3Extensions.swift */,
+				C91240FF26584C6F00047707 /* GLKQuaternionExtension.swift */,
 				A4F80A27203B3B86008D976A /* Main.storyboard */,
 				A4F80A2A203B3B86008D976A /* Assets.xcassets */,
 				A4F80A2C203B3B86008D976A /* LaunchScreen.storyboard */,
 				A4F80A2F203B3B86008D976A /* Info.plist */,
+				C912410226584D1600047707 /* cameraPoint.png */,
+				C912410126584D1500047707 /* yawMeter.png */,
 				A4F80ADE2040F430008D976A /* Audio */,
 			);
 			path = "mach1-decode-example";
@@ -142,15 +154,6 @@
 		A4F80ADE2040F430008D976A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				A4AF3D082048C42500253825 /* 000.aif */,
-				A4AF3CFB2048C3D900253825 /* 001.aif */,
-				A4AF3CFA2048C3D800253825 /* 002.aif */,
-				A4AF3CFE2048C3DD00253825 /* 003.aif */,
-				A4AF3CFC2048C3DB00253825 /* 004.aif */,
-				A4AF3CF82048C3D500253825 /* 005.aif */,
-				A4AF3CF92048C3D600253825 /* 006.aif */,
-				A4AF3CFD2048C3DC00253825 /* 007.aif */,
-				A4AF3D0A20491A3F00253825 /* stereo.wav */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -223,19 +226,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4AF3D092048C42500253825 /* 000.aif in Resources */,
-				A4AF3D032048C3DE00253825 /* 001.aif in Resources */,
-				A4AF3D022048C3DE00253825 /* 002.aif in Resources */,
-				A4AF3D0B20491A3F00253825 /* stereo.wav in Resources */,
-				A4AF3D062048C3DE00253825 /* 003.aif in Resources */,
-				A4AF3D042048C3DE00253825 /* 004.aif in Resources */,
-				A4AF3D002048C3DE00253825 /* 005.aif in Resources */,
-				A4AF3D012048C3DE00253825 /* 006.aif in Resources */,
-				A4AF3D052048C3DE00253825 /* 007.aif in Resources */,
 				C9DD35EB262D22D400A9FBA0 /* Podfile in Resources */,
 				A4F80A2E203B3B86008D976A /* LaunchScreen.storyboard in Resources */,
+				C912410326584D1600047707 /* yawMeter.png in Resources */,
 				A4F80A2B203B3B86008D976A /* Assets.xcassets in Resources */,
 				A4F80A29203B3B86008D976A /* Main.storyboard in Resources */,
+				C912410426584D1600047707 /* cameraPoint.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,8 +281,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C91240FA265846A300047707 /* CMDeviceMotion.swift in Sources */,
 				A4F80A26203B3B86008D976A /* ViewController.swift in Sources */,
 				A4F80A24203B3B86008D976A /* AppDelegate.swift in Sources */,
+				C91240F4265843C200047707 /* RollMeter.swift in Sources */,
+				C91240F6265843C200047707 /* PitchMeter.swift in Sources */,
+				C91240F82658453500047707 /* SoundMap.swift in Sources */,
+				C912410026584C6F00047707 /* GLKQuaternionExtension.swift in Sources */,
+				C91240FE2658479E00047707 /* SCNQuaternionExtension.swift in Sources */,
+				C91240F5265843C200047707 /* YawMeter.swift in Sources */,
+				C91240FC2658478800047707 /* SCNVector3Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

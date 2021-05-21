@@ -8,13 +8,13 @@
 
 import UIKit
 import CoreMotion
+import SceneKit
 import AVFoundation
 import Mach1SpatialAPI
 
 var motionManager = CMMotionManager()
 var stereoPlayer = AVAudioPlayer()
 var m1obj = Mach1Decode()
-var stereoActive = false
 var isYawActive = true
 var isPitchActive = false
 var isRollActive = false
@@ -25,6 +25,11 @@ private var mixer: AVAudioMixerNode = AVAudioMixerNode()
 var players: [AVAudioPlayer] = []
 
 class ViewController: UIViewController {
+    
+    @IBOutlet var soundMap: SoundMap?
+    @IBOutlet var yawMeter: YawMeter?
+    @IBOutlet var rollMeter: RollMeter?
+    @IBOutlet var pitchMeter: PitchMeter?
     
     @IBOutlet weak var yaw: UILabel!
     @IBOutlet weak var pitch: UILabel!
@@ -56,9 +61,7 @@ class ViewController: UIViewController {
         }
         //stereoPlayer.prepareToPlay()
     }
-    @IBAction func staticStereoActive(_ sender: Any) {
-        stereoActive = !stereoActive
-    }
+    
     @IBAction func yawActive(_ sender: Any) {
         isYawActive = !isYawActive
     }
@@ -68,136 +71,100 @@ class ViewController: UIViewController {
     @IBAction func rollActive(_ sender: Any) {
         isRollActive = !isRollActive
     }
+    
+    var m1Decode : Mach1Decode!
+    var cameraYaw : Float = 0.0
+    var cameraPitch : Float = 0.0
+    var cameraRoll : Float = 0.0
+    
+    @objc func update() {
+        m1Decode.beginBuffer()
+        let decodeArray: [Float]  = m1Decode.decode(Yaw: Float(cameraYaw), Pitch: Float(cameraPitch), Roll: Float(cameraRoll))
+        m1Decode.endBuffer()
+        
+        soundMap?.update(decodeArray: decodeArray, decodeType: Mach1DecodeAlgoSpatial, rotationAngleForDisplay: -cameraPitch * Float.pi/180)
+    }
+    
+    func getEuler(q1 : SCNVector4) -> float3
+    {
+        var res = float3(0,0,0)
+        
+        let test = q1.x * q1.y + q1.z * q1.w
+        if (test > 0.499) // singularity at north pole
+        {
+            return float3(
+                0,
+                Float(2 * atan2(q1.x, q1.w)),
+                .pi / 2
+                ) * 180 / .pi
+        }
+        if (test < -0.499) // singularity at south pole
+        {
+            return float3(
+                0,
+                Float(-2 * atan2(q1.x, q1.w)),
+                -.pi / 2
+                ) * 180 / .pi
+        }
+        
+        let sqx = q1.x * q1.x
+        let sqy = q1.y * q1.y
+        let sqz = q1.z * q1.z
+        
+        res.x = Float(atan2(2 * q1.x * q1.w - 2 * q1.y * q1.z, 1 - 2 * sqx - 2 * sqz))
+        res.y = Float(atan2(2 * q1.y * q1.w - 2 * q1.x * q1.z, 1 - 2 * sqy - 2 * sqz))
+        res.z = Float(sin(2.0 * test))
+        
+        return res * 180 / .pi
+    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
         
-        do {
-            for i in 0...7 {
-                //load in the individual streams of audio from a Mach1 Spatial encoded audio file
-                //this example assumes you have decoded the multichannel (8channel) audio file into individual streams
-                players.append(try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "00" + String(i), ofType: "aif")!)))
-                players.append(try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "00" + String(i), ofType: "aif")!)))
-                
-                players[i * 2].numberOfLoops = 10
-                players[i * 2 + 1].numberOfLoops = 10
-                
-                //the Mach1Decode function 8*2 channels to correctly recreate the stereo image
-                players[i * 2].pan = -1.0;
-                players[i * 2 + 1].pan = 1.0;
-                
-                players[i * 2].prepareToPlay()
-                players[i * 2 + 1].prepareToPlay()
-                
-            }
-            
-            //Mach1 Decode Setup
-            //Setup the correct angle convention for orientation Euler input angles
-            m1obj.setPlatformType(type: Mach1PlatformiOS)
-            //Setup the expected spatial audio mix format for decoding
-            m1obj.setDecodeAlgoType(newAlgorithmType: Mach1DecodeAlgoSpatial)
-            //Setup for the safety filter speed:
-            //1.0 = no filter | 0.1 = slow filter
-            m1obj.setFilterSpeed(filterSpeed: 1.0)
-            
-        } catch {
-            print (error)
-        }
+        m1Decode = Mach1Decode()
+        //Mach1 Decode Setup
+        //Setup the correct angle convention for orientation Euler input angles
+        m1Decode.setPlatformType(type: Mach1PlatformiOS)
+        //Setup the expected spatial audio mix format for decoding
+        m1Decode.setDecodeAlgoType(newAlgorithmType: Mach1DecodeAlgoSpatial)
+        //Setup for the safety filter speed:
+        //1.0 = no filter | 0.1 = slow filter
+        m1Decode.setFilterSpeed(filterSpeed: 1.0)
+       
+        // timer for draw update
+        Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: (#selector(ViewController.update)), userInfo: nil, repeats: true)
         
-        
-        //Static Stereo
-        do{
-            stereoPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "stereo", ofType: "wav")!))
-        } catch {
-            print(error)
-        }
-        stereoPlayer.prepareToPlay()
-        print(stereoPlayer)
-        
-        //TODO: split audio channels for independent coeffs from our lib
-        //let channelCount = audioPlayer.numberOfChannels
-        //print("Channel Count: ", channelCount)
-        
-        //Allow audio to play when app closes
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-        } catch {
-            print(error)
-        }
-        
-        // Ensure to keep a strong reference to the motion manager otherwise you won't get updates
         if motionManager.isDeviceMotionAvailable == true {
             motionManager.deviceMotionUpdateInterval = 0.01;
             let queue = OperationQueue()
             motionManager.startDeviceMotionUpdates(to: queue, withHandler: { [weak self] (motion, error) -> Void in
                 
                 // Get the attitudes of the device
-                let attitude = motion?.attitude
-                //Device orientation management
-                var deviceYaw = attitude!.yaw * 180/M_PI
-                var devicePitch = attitude!.pitch * 180/M_PI
-                //                    let devicePitch = 0.0
-                var deviceRoll = attitude!.roll * 180/M_PI
-                //                    let deviceRoll = 0.0
-                //                    print("Yaw: ", deviceYaw)
-                //                    print("Pitch: ", devicePitch)
+                let quat = motion?.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
+                var angles = self!.getEuler(q1: quat!)
+                
+                self?.cameraYaw = angles.x
+                self?.cameraPitch = angles.y
+                self?.cameraRoll = angles.z
+                
+                DispatchQueue.main.async {
+                    self?.yawMeter?.update(meter: -angles.y / 180)
+                    self?.rollMeter?.update(meter: -angles.z / 90)
+                    self?.pitchMeter?.update(meter: -angles.x / 90)
+                    /*
+                    self?.labelInfo?.text = "Yaw: " + String(format: "%.3f", angles.x) + "°" + "\r\n" +
+                        "Pitch: " + String(format: "%.3f", angles.y) + "°" + "\r\n" +
+                        "Roll: " + String(format: "%.3f", angles.z) + "°"
+                    */
+                }
 
-                // Please notice that you're expected to correct the correct the angles you get from
-                // the device's sensors to provide M1 Library with accurate angles in accordance to documentation.
-                // (documentation URL here)
-                switch UIDevice.current.orientation{
-                    case .portrait:
-                        deviceYaw += 90
-                        devicePitch -= 90
-                    case .portraitUpsideDown:
-                        deviceYaw -= 90
-                        devicePitch += 90
-                    case .landscapeLeft:
-                        deviceRoll += 90
-                    case .landscapeRight:
-                        deviceYaw += 180
-                        deviceRoll -= 90
-//                    default:
-                    
-                    default: break
-                    //
-                }
-                
-                DispatchQueue.main.async() {
-                    self?.yaw.text = String(deviceYaw)
-                    self?.pitch.text = String(devicePitch)
-                    self?.roll.text = String(deviceRoll)
-                }
-                //Mute stereo if off
-                if (stereoActive) {
-                    stereoPlayer.setVolume(1.0, fadeDuration: 0.1)
-                } else if (!stereoActive) {
-                    stereoPlayer.setVolume(0.0, fadeDuration: 0.1)
-                }
-                
-                //Send device orientation to m1obj with the preferred algo
-                m1obj.beginBuffer()
-                let decodeArray: [Float]  = m1obj.decode(Yaw: Float(deviceYaw), Pitch: Float(devicePitch), Roll: Float(deviceRoll))
-                m1obj.endBuffer()
-                //                    print(decodeArray)
-                
-                //Use each coeff to decode multichannel Mach1 Spatial mix
-                for i in 0...7 {
-                    players[i * 2].setVolume(Float(decodeArray[i * 2]), fadeDuration: 0)
-                    players[i * 2 + 1].setVolume(Float(decodeArray[i * 2 + 1]), fadeDuration: 0)
-                    
-                    print(String(players[i * 2].currentTime) + " ; " + String(i * 2))
-                    print(String(players[i * 2 + 1].currentTime) + " ; " + String(i * 2 + 1))
-                }
-                
-                
             })
             print("Device motion started")
         } else {
             print("Device motion unavailable");
         }
-        
-    }
+
     
 }
-
+}
