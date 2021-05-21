@@ -64,12 +64,6 @@ class SoundMap: UIView {
         tapTwoGesture.numberOfTapsRequired = 2
         self.addGestureRecognizer(tapTwoGesture)
         
-        let longTapGesture = UILongPressGestureRecognizer()
-        longTapGesture.addTarget(self, action: #selector(self.longTapGestureAction(_:)))
-        longTapGesture.numberOfTapsRequired = 0
-        longTapGesture.minimumPressDuration = 0.5
-        self.addGestureRecognizer(longTapGesture)
-        
         let panGesture = UIPanGestureRecognizer()
         panGesture.addTarget(self, action: #selector(self.panGestureAction(_:)))
         self.addGestureRecognizer(panGesture)
@@ -177,68 +171,8 @@ class SoundMap: UIView {
         return CGFloat(sqrt(xDist * xDist + yDist * yDist))
     }
     
-    func selectEncoder(touchPoint: CGPoint) {
-        selectedEncoder = -1
-        if(viewsEncoders.count>0) {
-            for i in 0...viewsEncoders.count-1 {
-                if(distance(viewsEncoders[i].center,touchPoint) < 50 && selectedEncoder == -1) {
-                    selectedEncoder = i
-                    viewsEncoders[selectedEncoder].selected = true
-                }
-                else {
-                    viewsEncoders[i].selected = false
-                }
-            }
-        }
-        
-        if(selectedEncoder == -1) {
-            closureSelectEncoder!(nil)
-        }
-        else {
-            closureSelectEncoder!(viewsEncoders[selectedEncoder])
-        }
-    }
-    
-    
-    @objc func longTapGestureAction(_ sender: UILongPressGestureRecognizer) {
-        let touchPoint : CGPoint = sender.location(ofTouch: 0, in : self)
-        
-        if(sender.state ==  UIGestureRecognizerState.began) {
-            selectEncoder(touchPoint: touchPoint)
-            if(selectedEncoder != -1) {
-                viewsEncoders[selectedEncoder].removeFromSuperview()
-                viewsEncoders.remove(at: selectedEncoder)
-                closureSelectEncoder!(nil)
-                selectedEncoder = -1
-            }
-        }
-    }
-    
     @objc func tapGestureAction(_ sender: UITapGestureRecognizer) {
         var touchPoint : CGPoint = sender.location(ofTouch: 0, in : self)
-        
-        if(viewsEncoders.count>0) {
-            for i in 0...viewsEncoders.count-1 {
-                viewsEncoders[i].selected = false
-            }
-        }
-        
-        if(sender.numberOfTapsRequired == 1) {
-            selectEncoder(touchPoint: touchPoint)
-            
-        }
-        else  if(sender.numberOfTapsRequired == 2) {
-            let encoderView : Encoder = Encoder()
-            encoderView.frame.size.width = self.frame.size.width
-            encoderView.frame.size.height = self.frame.size.height
-            encoderView.center = CGPoint(x: touchPoint.x, y: touchPoint.y)
-            encoderView.selected = true
-            self.addSubview(encoderView)
-            
-            viewsEncoders.append(encoderView)
-            
-            closureSelectEncoder!(encoderView)
-        }
         
         touchPoint.x /= self.frame.size.width
         touchPoint.y /= self.frame.size.height
@@ -254,8 +188,6 @@ class SoundMap: UIView {
             var touchPoint : CGPoint = sender.location(ofTouch: 0, in : self)
             print("pan start: ",  touchPoint)
             
-            selectEncoder(touchPoint: touchPoint)
-            
             touchPoint.x /= self.frame.size.width
             touchPoint.y /= self.frame.size.height
             // self.setNeedsDisplay()
@@ -264,29 +196,6 @@ class SoundMap: UIView {
         {
             var touchPoint : CGPoint = sender.location(ofTouch: 0, in : self)
             
-            if(selectedEncoder != -1) {
-  
-                var vec : SCNVector3 = SCNVector3(2.0 * (Float(touchPoint.x  / (self.frame.width)) - 0.5), 2.0 * (Float(touchPoint.y / (self.frame.height)) - 0.5), 0.0)
-
-                // limit encoder position
-                /*
-                let maxDist : Float = 0.95
-                let dist : Float = vec.length()
-                if(dist > maxDist) {
-                    vec = vec.normalize() * maxDist
-                }
-                */
-                
-                let maxDist : Float = 1.0
-                vec.x = min(max(vec.x, -1), 1)
-                vec.y = min(max(vec.y, -1), 1)
-
-                viewsEncoders[selectedEncoder].xInternal = vec.x * 1.0 / maxDist
-                viewsEncoders[selectedEncoder].yInternal = vec.y * 1.0 / maxDist
-                viewsEncoders[selectedEncoder].center = CGPoint(x: CGFloat(self.frame.width * 0.5) * CGFloat(1.0 + vec.x), y: CGFloat(self.frame.height * 0.5) * CGFloat(1.0 + vec.y))
-                
-                print("point changed: ",  viewsEncoders[selectedEncoder].xInternal,  viewsEncoders[selectedEncoder].yInternal )
-            }
             
             touchPoint.x /= self.frame.size.width
             touchPoint.y /= self.frame.size.height
@@ -296,12 +205,6 @@ class SoundMap: UIView {
     
     func update(decodeArray: [Float], decodeType: Mach1DecodeAlgoType, rotationAngleForDisplay : Float) {
         self.rotationAngle = rotationAngleForDisplay
-        
-        if(viewsEncoders.count>0) {
-            for i in 0...viewsEncoders.count-1 {
-                viewsEncoders[i].update(decodeArray: decodeArray, decodeType: decodeType)
-            }
-        }
         
         self.setNeedsDisplay()
     }
